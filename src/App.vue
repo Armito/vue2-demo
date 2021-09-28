@@ -1,13 +1,23 @@
 <!--
  * @Author: Armito
  * @Date: 2021-04-12 16:49:57
- * @LastEditTime: 2021-09-17 09:59:03
+ * @LastEditTime: 2021-09-28 09:38:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vue-demo\src\App.vue
 -->
 <template>
   <div id="app">
+    <div>
+      <button @click="testReactivity">TEST</button>
+      <button @click="testReactivity2">TEST2</button>
+      <button @click="testReactivity3">TEST3</button>
+      <button @click="testReactivity4">TEST4</button>
+      <div>1: {{ testObj.property }}</div>
+      <div>2: {{ testObj.pppp }}</div>
+      <div>3: {{ testObj.qqqqqq }}</div>
+    </div>
+
     <Dom />
     <Functional style="color: skyblue;" class="fff" :flag="true" />
     <!-- <ChangePage /> -->
@@ -63,14 +73,6 @@ export default {
     Dom
   },
 
-  data() {
-    return {
-      form: useForm(),
-      formItems: useFormItems(),
-      buttons: useButtons()
-    };
-  },
-
   methods: {
     buttonClick([effect, formData]) {
       switch (effect) {
@@ -98,7 +100,43 @@ export default {
         default:
           break;
       }
+    },
+
+    testReactivity() {
+      // this.testObj.pppp = "3333";
+      // this.testObj.property = "44444";
+      this.testObj = {
+        property: "33333",
+        // pppp: "22444444444222"
+        qqqqqq: "88888"
+      };
+    },
+
+    testReactivity2() {
+      this.testObj.property = "44444";
+      this.testObj.pppp = "55555";
+    },
+
+    testReactivity3() {
+      this.testObj.pppp = "66666";
+    },
+
+    testReactivity4() {
+      this.testObj.qqqqqq = "77777";
     }
+  },
+
+  data() {
+    return {
+      form: useForm(),
+      formItems: useFormItems(),
+      buttons: useButtons(),
+
+      testObj: {
+        property: "111111",
+        pppp: "22222"
+      }
+    };
   }
 };
 </script>
