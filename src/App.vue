@@ -9,6 +9,12 @@
 <template>
     <div id="app">
         <div>
+            <CompositionApi />
+        </div>
+        <div>
+            <CountIndictor />
+        </div>
+        <div>
             <FormStudy />
         </div>
         <div>
@@ -59,6 +65,8 @@ import ClockThree from './components/ClockThree.vue'
 import Functional from './components/Functional.vue'
 import Dom from './components/Dom.vue'
 import FormStudy from './components/FormStudy.vue'
+import CountIndictor from './components/CountIndictor.vue'
+import CompositionApi from './components/CompositionApi.vue'
 
 export default {
     components: {
@@ -76,6 +84,8 @@ export default {
         Functional,
         Dom,
         FormStudy,
+        CountIndictor,
+        CompositionApi,
     },
 
     methods: {
