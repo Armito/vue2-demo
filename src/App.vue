@@ -8,6 +8,7 @@
 -->
 <template>
     <div id="app">
+        <JsDoc />
         <div>
             <CompositionApi />
         </div>
@@ -67,6 +68,7 @@ import Dom from './components/Dom.vue'
 import FormStudy from './components/FormStudy.vue'
 import CountIndictor from './components/CountIndictor.vue'
 import CompositionApi from './components/CompositionApi.vue'
+import JsDoc from './components/JsDoc.vue'
 
 export default {
     components: {
@@ -86,6 +88,7 @@ export default {
         FormStudy,
         CountIndictor,
         CompositionApi,
+        JsDoc,
     },
 
     methods: {

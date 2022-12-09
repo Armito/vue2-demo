@@ -8,6 +8,9 @@ export default {
     },
 
     methods: {
+        /**
+         * @param  {number} val
+         */
         mixinCount_increment(val = 0) {
             if (isNumber(val)) {
                 this.mixinCount_count += val
