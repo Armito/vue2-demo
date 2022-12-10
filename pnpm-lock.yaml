@@ -10,6 +10,7 @@ specifiers:
   '@vue/eslint-config-standard': ^6.0.0
   babel-eslint: ^10.1.0
   core-js: ^3.6.5
+  docdash: ^2.0.0
   echarts: ^5.0.0
   element-ui: ^2.15.1
   eslint: ^6.8.0
@@ -60,6 +61,7 @@ devDependencies:
   '@vue/eslint-config-prettier': 6.0.0_27nv2vfa7637uo5vfpd5tdence
   '@vue/eslint-config-standard': 6.1.0_zy3iqkfw57w7r4ul7czfwo7i34
   babel-eslint: 10.1.0_eslint@6.8.0
+  docdash: 2.0.0
   eslint: 6.8.0
   eslint-config-prettier: 8.5.0_eslint@6.8.0
   eslint-plugin-prettier: 3.4.1_6gwf7uzwmlb35zuokwykxuaf4y
@@ -1570,6 +1572,13 @@ packages:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
+
+  /@jsdoc/salty/0.2.1:
+    resolution: {integrity: sha512-JXwylDNSHa549N9uceDYu8D4GMXwSo3H8CCPYEQqxhhHpxD28+lRl2b3bS/caaPj5w1YD3SWtrficJNTnUjGpg==}
+    engines: {node: '>=v12.0.0'}
+    dependencies:
+      lodash: 4.17.21
+    dev: true
 
   /@mrmlnc/readdir-enhanced/2.2.1:
     resolution: {integrity: sha1-UkryQNGjYFJ7cwR17PoTRKpUDd4=}
@@ -4499,6 +4508,12 @@ packages:
     resolution: {integrity: sha1-uR2Ab10nGI5Ks+fRB9iBocxGQrY=}
     dependencies:
       buffer-indexof: 1.1.1
+    dev: true
+
+  /docdash/2.0.0:
+    resolution: {integrity: sha512-AxxZwrMLmiArEHJirdyZmW6YTBKxkd/Z5V9U2EU1crIMtpgoU/cH7Hnc9n1E0lzB1ZSam+VVMSnvlc+9+GUGVg==}
+    dependencies:
+      '@jsdoc/salty': 0.2.1
     dev: true
 
   /doctrine/2.1.0:
