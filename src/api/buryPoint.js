@@ -1,4 +1,8 @@
 /**
+ * @module api/buryPoint
+ */
+
+/**
  * 埋点
  * @function
  * @param  {object} buryParams

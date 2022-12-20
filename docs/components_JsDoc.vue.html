@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Documentation</title>
+    <title>components/JsDoc.vue - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -35,49 +35,84 @@
 
 <div id="main">
     
+    <h1 class="page-title">components/JsDoc.vue</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>&lt;template>
+    &lt;div>{{ name1 }}{{ name2 }}&lt;/div>
+&lt;/template>
 
+&lt;script>
+import { getBookList } from '@/api'
 
-    <section class="package">
-        <h3> </h3>		
+/**
+ * @module components/JsDoc
+ * @vue-data {String} name1
+ * @vue-data {String} name2
+ * @vue-event {genFullNameByStr} genFullNameByStr
+ * @vue-event {genFullNameByObj} genFullNameByObj
+ */
+export default {
+    data() {
+        return {
+            /**
+             * @type {string}
+             */
+            name1: '',
+            name2: '',
+        }
+    },
+
+    methods: {
+        /**
+         * @description 通过字符串生成全名
+         * @function genFullNameByStr
+         * @param {string} firstName
+         * @param {string} [middleName='']
+         * @param {string} [lastName='']
+         * @return {string}
+         */
+        genFullNameByStr(firstName, middleName = '', lastName = '') {
+            return firstName + middleName + lastName
+        },
+
+        /**
+         * @typedef {object} NameObj
+         * @property {string} firstName
+         * @property {string} [middleName]
+         * @property {string} [lastName]
+         */
+
+        /**
+         * @description 通过对象生成全名
+         * @function genFullNameByObj
+         * @param {NameObj} nameObj
+         * @return {string}
+         */
+        genFullNameByObj({ firstName, middleName = '', lastName = '' }) {
+            return firstName + middleName + lastName
+        },
+    },
+
+    mounted() {
+        this.name1 = this.genFullNameByStr('Armito', 'Zeng')
+        this.name2 = this.genFullNameByObj({
+            firstName: 'Armito',
+            lastName: 'Zeng',
+        })
+    },
+}
+&lt;/script>
+</code></pre>
+        </article>
     </section>
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    <section class="readme usertext">
-        <article><h1>vue-demo</h1>
-<h2>Project setup</h2>
-<pre class="prettyprint source"><code>yarn install
-</code></pre>
-<h3>Compiles and hot-reloads for development</h3>
-<pre class="prettyprint source"><code>yarn serve
-</code></pre>
-<h3>Compiles and minifies for production</h3>
-<pre class="prettyprint source"><code>yarn build
-</code></pre>
-<h3>Lints and fixes files</h3>
-<pre class="prettyprint source"><code>yarn lint
-</code></pre>
-<h3>Customize configuration</h3>
-<p>See <a href="https://cli.vuejs.org/config/">Configuration Reference</a>.</p></article>
-    </section>
-
-
 
 
 

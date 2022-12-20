@@ -1,4 +1,8 @@
 /**
+ * @module api/book
+ */
+
+/**
  * 获取图书列表
  * @function
  * @param  {object} params

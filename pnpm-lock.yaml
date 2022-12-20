@@ -20,6 +20,7 @@ specifiers:
   eslint-plugin-prettier: ^3.4.0
   eslint-plugin-promise: '>=4.2.1 <5.0.0 || >=5.0.0 <6.0.0'
   eslint-plugin-vue: ^6.2.2
+  jsdoc-vue: ^1.0.0
   lodash: ^4.17.21
   moment: ^2.29.1
   prettier: ^2.7.1
@@ -66,6 +67,7 @@ devDependencies:
   eslint-config-prettier: 8.5.0_eslint@6.8.0
   eslint-plugin-prettier: 3.4.1_6gwf7uzwmlb35zuokwykxuaf4y
   eslint-plugin-vue: 6.2.2_eslint@6.8.0
+  jsdoc-vue: 1.0.0_rwi2bc5qwo57avi7ugpaxvtriq
   prettier-eslint: 12.0.0
   sass-loader: 11.1.1_webpack@5.74.0
   vue-template-compiler: 2.7.13
@@ -6741,6 +6743,14 @@ packages:
 
   /jsbn/0.1.1:
     resolution: {integrity: sha1-peZUwuWi3rXyAdls77yoDA7y9RM=}
+    dev: true
+
+  /jsdoc-vue/1.0.0_rwi2bc5qwo57avi7ugpaxvtriq:
+    resolution: {integrity: sha512-SfI718aw9mKpwasY8WNMW08iTIZyPeGa/66QnHzzbVtyJ85U3uorjrNWCuBL6mJdUM2rgUMOaes1PuZIYHApKg==}
+    peerDependencies:
+      vue-template-compiler: '*'
+    dependencies:
+      vue-template-compiler: 2.7.13
     dev: true
 
   /jsesc/0.5.0:

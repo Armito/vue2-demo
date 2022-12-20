@@ -1,8 +1,8 @@
 {
-    "plugins": ["plugins/markdown"],
+    "plugins": ["node_modules/jsdoc-vue"],
     "source": {
-        "include": ["src/api"],
-        "includePattern": ".js$",
+        "include": ["src/api", "src/components"],
+        "includePattern": "\\.(vue|js)$",
         "excludePattern": "(node_modules/|docs)"
     },
     "sourceType": "module",
