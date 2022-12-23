@@ -8,6 +8,13 @@
 -->
 <template>
     <div id="app">
+        <Table
+            :columns="columns"
+            :data="tableData"
+            height="250"
+            :hassSelection="true"
+            :hasIndex="true"
+        />
         <JsDoc />
         <div>
             <CompositionApi />
@@ -69,6 +76,7 @@ import FormStudy from './components/FormStudy.vue'
 import CountIndictor from './components/CountIndictor.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
+import Table from './components/Table/index.vue'
 
 export default {
     components: {
@@ -89,6 +97,7 @@ export default {
         CountIndictor,
         CompositionApi,
         JsDoc,
+        Table,
     },
 
     methods: {
@@ -154,6 +163,71 @@ export default {
                 property: '111111',
                 pppp: '22222',
             },
+
+            columns: [
+                {
+                    prop: 'date',
+                    label: '日期',
+                    width: 180,
+                    render: (h, { row }) => {
+                        return h('div', {}, row.date)
+                    },
+                },
+                {
+                    prop: 'name',
+                    label: '姓名',
+                    width: 180,
+                    renderHeader: (h, { column }) => {
+                        return h('div', {}, column.label + 123)
+                    },
+                },
+                {
+                    prop: 'address',
+                    label: '地址',
+                },
+            ],
+            tableData: [
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                },
+                {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄',
+                },
+                {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄',
+                },
+                {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄',
+                },
+                {
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄',
+                },
+                {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄',
+                },
+                {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄',
+                },
+                {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄',
+                },
+            ],
         }
     },
 }

@@ -22,5 +22,6 @@ module.exports = {
         indent: ['error', 4, { SwitchCase: 1 }],
         'prettier/prettier': 'off',
         'no-unused-vars': 'off',
+        'vue/no-unused-vars': 'off',
     },
 }
