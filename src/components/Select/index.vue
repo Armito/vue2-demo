@@ -101,6 +101,7 @@ export default {
                 disabled: this.fieldMap.disabled || 'disabled',
             }
             return this.options.map((o) => ({
+                ...o,
                 value: o[_fieldMap.value],
                 label: o[_fieldMap.label],
                 disabled: o[_fieldMap.disabled],

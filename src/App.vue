@@ -1,19 +1,60 @@
-<!--
- * @Author: Armito
- * @Date: 2021-04-12 16:49:57
- * @LastEditTime: 2021-09-28 09:38:58
- * @LastEditors: Please set LastEditors
- * @Description: In User Settings Edit
- * @FilePath: \vue-demo\src\App.vue
--->
 <template>
     <div id="app">
+        <QueryForm
+            :items="[
+                {
+                    prop: 'user',
+                    label: '审批人',
+                    fieldType: 'textarea',
+                },
+                {
+                    prop: 'region',
+                    label: '审批类型',
+                    fieldType: 'checkboxbutton',
+                    options: [
+                        { name: 'a', key: 1 },
+                        { name: 'b', key: 2 },
+                    ],
+                    proFormItem: {
+                        fieldMap: {
+                            value: 'key',
+                            label: 'name',
+                        },
+                    },
+                },
+                {
+                    prop: 'time',
+                    label: '审批时间',
+                    fieldType: 'datetime',
+                },
+                {
+                    prop: 'expire',
+                    label: '审批截止时间',
+                    render: (h) => {
+                        return h('el-date-picker', {
+                            props: {
+                                value: this.formModel.expire,
+                                type: 'year',
+                            },
+                            on: {
+                                change: (event) => {
+                                    console.log(event)
+                                },
+                            },
+                        })
+                    },
+                },
+            ]"
+            v-model="formModel"
+            @submit="onSearch"
+        />
         <Table
+            ref="tableRef"
             :columns="columns"
             :data="tableData"
             height="250"
-            :hassSelection="true"
-            :hasIndex="true"
+            hasSelection
+            hasIndex
         />
         <JsDoc />
         <div>
@@ -77,6 +118,7 @@ import CountIndictor from './components/CountIndictor.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
 import Table from './components/Table/index.vue'
+import QueryForm from './components/QueryForm/index.vue'
 
 export default {
     components: {
@@ -98,9 +140,14 @@ export default {
         CompositionApi,
         JsDoc,
         Table,
+        QueryForm,
     },
 
     methods: {
+        onSearch(model) {
+            console.log(model)
+        },
+
         buttonClick([effect, formData]) {
             switch (effect) {
                 case 'Search':
@@ -155,6 +202,10 @@ export default {
 
     data() {
         return {
+            formModel: {
+                region: [2],
+            },
+
             form: useForm(),
             formItems: useFormItems(),
             buttons: useButtons(),
@@ -229,6 +280,23 @@ export default {
                 },
             ],
         }
+    },
+
+    watch: {
+        formModel: {
+            handler(val) {
+                console.log(val)
+            },
+            deep: true,
+        },
+    },
+
+    mounted() {
+        setTimeout(() => {
+            this.$refs.tableRef.$refs.tableRef.clearSelection()
+            this.formModel.user = 'Armito'
+            // this.formModel.region = 1
+        }, 3000)
     },
 }
 </script>

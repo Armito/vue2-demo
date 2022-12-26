@@ -23,5 +23,6 @@ module.exports = {
         'prettier/prettier': 'off',
         'no-unused-vars': 'off',
         'vue/no-unused-vars': 'off',
+        'vue/no-unused-components': 'off',
     },
 }

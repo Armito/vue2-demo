@@ -1,7 +1,12 @@
 <template>
-    <el-table v-bind="$attrs" v-on="$listeners" style="width: 100%">
+    <el-table
+        ref="tableRef"
+        v-bind="$attrs"
+        v-on="$listeners"
+        style="width: 100%"
+    >
         <el-table-column
-            v-if="hassSelection"
+            v-if="hasSelection"
             type="selection"
             width="55"
         ></el-table-column>
@@ -46,7 +51,7 @@ export default {
             default: () => [],
         },
 
-        hassSelection: {
+        hasSelection: {
             type: Boolean,
             default: false,
         },
