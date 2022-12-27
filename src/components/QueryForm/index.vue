@@ -1,47 +1,45 @@
 <template>
-    <el-form
-        v-bind="$attrs"
-        v-on="$listeners"
-        :inline="true"
-        :model="formModel"
-    >
+    <el-form ref="formRef" v-bind="$attrs" v-on="$listeners" :model="formModel">
         <el-form-item
             v-for="item in items"
             v-bind="item.formItem"
             :key="item.prop"
             :label="item.label"
+            :prop="item.prop"
         >
             <ProFormItem
-                v-if="!item.render"
+                v-if="!item.slot"
                 v-bind="item.proFormItem"
                 v-model="formModel[item.prop]"
                 :fieldType="item.fieldType"
                 :options="item.options"
             />
-            <RenderItemComponent v-else :render="item.render" />
+            <slot :name="item.slot"></slot>
         </el-form-item>
 
         <el-form-item>
-            <el-button type="primary" @click="onSubmit">查询</el-button>
+            <template v-if="!$scopedSlots.operation">
+                <el-button @click="reset">重置</el-button>
+                <el-button type="primary" @click="submit">查询</el-button>
+            </template>
+            <slot name="operation" :reset="reset" :submit="submit"></slot>
         </el-form-item>
     </el-form>
 </template>
 
 <script>
 import ProFormItem from '../ProFormItem/index.vue'
-import RenderItemComponent from '../RenderItemComponent/index.vue'
 
 export default {
     name: 'QueryForm',
 
     components: {
         ProFormItem,
-        RenderItemComponent,
     },
 
     model: {
-        prop: 'value',
-        event: 'update:value',
+        prop: 'model',
+        event: 'update:model',
     },
 
     props: {
@@ -52,30 +50,36 @@ export default {
             },
         },
 
-        value: {
+        model: {
             type: Object,
+            required: true,
         },
-    },
-
-    data() {
-        return {}
     },
 
     computed: {
         formModel: {
             get() {
-                return this.value || {}
+                return this.model || {}
             },
-
             set(val) {
-                this.$emit('update:value', val)
+                this.$emit('update:model', val)
             },
         },
     },
 
     methods: {
-        onSubmit() {
-            this.$emit('submit', this.formModel)
+        reset() {
+            this.$refs.formRef.resetFields()
+        },
+
+        validate(callback = () => {}) {
+            this.$refs.formRef.validate(callback)
+        },
+
+        submit() {
+            this.$refs.formRef.validate((valid) => {
+                valid && this.$emit('submit', this.formModel)
+            })
         },
     },
 }

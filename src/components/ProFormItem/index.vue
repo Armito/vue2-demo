@@ -14,7 +14,7 @@ import Radio from '../Radio/index.vue'
 import Checkbox from '../Checkbox/index.vue'
 
 // 注册字段类型到组件的映射
-export const FieldTypeMapComponent = {
+export const FieldTypeToComponentMap = {
     text: 'el-input',
     textarea: 'el-input',
     number: 'el-input-number',
@@ -47,7 +47,7 @@ export default {
     props: {
         fieldType: {
             validator(val) {
-                return Object.keys(FieldTypeMapComponent).includes(val)
+                return Object.keys(FieldTypeToComponentMap).includes(val)
             },
             required: true,
         },
@@ -59,7 +59,7 @@ export default {
 
     computed: {
         componentType() {
-            return FieldTypeMapComponent[this.fieldType]
+            return FieldTypeToComponentMap[this.fieldType]
         },
 
         _value: {

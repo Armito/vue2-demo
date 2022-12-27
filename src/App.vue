@@ -1,53 +1,26 @@
 <template>
     <div id="app">
         <QueryForm
-            :items="[
-                {
-                    prop: 'user',
-                    label: '审批人',
-                    fieldType: 'textarea',
-                },
-                {
-                    prop: 'region',
-                    label: '审批类型',
-                    fieldType: 'checkboxbutton',
-                    options: [
-                        { name: 'a', key: 1 },
-                        { name: 'b', key: 2 },
-                    ],
-                    proFormItem: {
-                        fieldMap: {
-                            value: 'key',
-                            label: 'name',
-                        },
-                    },
-                },
-                {
-                    prop: 'time',
-                    label: '审批时间',
-                    fieldType: 'datetime',
-                },
-                {
-                    prop: 'expire',
-                    label: '审批截止时间',
-                    render: (h) => {
-                        return h('el-date-picker', {
-                            props: {
-                                value: this.formModel.expire,
-                                type: 'year',
-                            },
-                            on: {
-                                change: (event) => {
-                                    console.log(event)
-                                },
-                            },
-                        })
-                    },
-                },
-            ]"
             v-model="formModel"
+            :items="items"
+            :rules="rules"
             @submit="onSearch"
-        />
+        >
+            <template #expire>
+                <el-color-picker v-model="formModel.expire"></el-color-picker>
+            </template>
+            <template #operation="{ reset, submit }">
+                <el-button
+                    @click="
+                        () => {
+                            submit()
+                        }
+                    "
+                >
+                    submit
+                </el-button>
+            </template>
+        </QueryForm>
         <Table
             ref="tableRef"
             :columns="columns"
@@ -202,8 +175,55 @@ export default {
 
     data() {
         return {
+            items: [
+                {
+                    prop: 'user',
+                    label: '审批人',
+                    fieldType: 'textarea',
+                },
+                {
+                    prop: 'region',
+                    label: '审批类型',
+                    fieldType: 'checkbox',
+                    options: [
+                        { name: 'a', key: 1 },
+                        { name: 'b', key: 2 },
+                    ],
+                    proFormItem: {
+                        fieldMap: {
+                            value: 'key',
+                            label: 'name',
+                        },
+                    },
+                },
+                {
+                    slot: 'expire',
+                    prop: 'expire',
+                    label: '审批截止时间',
+                },
+                {
+                    prop: 'time',
+                    label: '审批时间',
+                    fieldType: 'datetime',
+                },
+            ],
             formModel: {
+                user: '',
                 region: [2],
+                expire: '#409EFF',
+                time: new Date(),
+            },
+            rules: {
+                region: [
+                    {
+                        required: true,
+                    },
+                ],
+                expire: [
+                    {
+                        required: true,
+                    },
+                ],
             },
 
             form: useForm(),
