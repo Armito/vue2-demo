@@ -36,6 +36,7 @@
         <div>
             <CountIndictor />
         </div>
+        <Count />
         <div>
             <FormStudy />
         </div>
@@ -88,6 +89,7 @@ import Functional from './components/Functional.vue'
 import Dom from './components/Dom.vue'
 import FormStudy from './components/FormStudy.vue'
 import CountIndictor from './components/CountIndictor.vue'
+import Count from './components/Count.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
 import Table from './components/Table/index.vue'
@@ -114,6 +116,7 @@ export default {
         JsDoc,
         Table,
         QueryForm,
+        Count,
     },
 
     methods: {
