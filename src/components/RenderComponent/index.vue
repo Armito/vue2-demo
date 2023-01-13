@@ -3,8 +3,19 @@ export default {
     name: 'RenderComponent',
 
     props: {
-        render: Function,
-        params: Object,
+        render: {
+            type: Function,
+            default() {
+                return () => {}
+            },
+        },
+
+        params: {
+            type: Object,
+            default() {
+                return {}
+            },
+        },
     },
 
     render(h) {

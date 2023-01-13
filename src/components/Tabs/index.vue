@@ -1,16 +1,17 @@
 <template>
     <el-tabs v-bind="$attrs" v-model="currentTab">
-        <el-tab-pane v-for="tab in tabs" v-bind="tab" :key="tab.name">
+        <el-tab-pane
+            v-for="{ render, renderLabel, ...tab } in tabs"
+            v-bind="tab"
+            :key="tab.name"
+        >
             <template #label>
-                <RenderComponent
-                    v-if="tab.renderLabel"
-                    :render="tab.renderLabel"
-                />
+                <RenderComponent v-if="renderLabel" :render="renderLabel" />
                 <template v-else>{{ tab.label }}</template>
             </template>
 
             <template #default>
-                <RenderComponent v-if="tab.render" :render="tab.render" />
+                <RenderComponent v-if="render" :render="render" />
             </template>
         </el-tab-pane>
     </el-tabs>
@@ -35,6 +36,14 @@ export default {
             required: true,
         },
 
+        /**
+         * @typedef {object} Tabpane
+         * @property {function} Tabpane.render        -- 渲染内容
+         * @property {function} Tabpane.renderLabel   -- 渲染label
+         */
+        /**
+         * @type {Tabpane[]}
+         */
         tabs: {
             type: Array,
             default: () => [],
