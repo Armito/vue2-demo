@@ -1,5 +1,6 @@
 <template>
     <div id="app">
+        <TabsStudy />
         <QueryForm
             v-model="formModel"
             :items="items"
@@ -94,6 +95,7 @@ import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
 import Table from './components/Table/index.vue'
 import QueryForm from './components/QueryForm/index.vue'
+import TabsStudy from './components/TabsStudy.vue'
 
 export default {
     components: {
@@ -117,6 +119,7 @@ export default {
         Table,
         QueryForm,
         Count,
+        TabsStudy,
     },
 
     methods: {
