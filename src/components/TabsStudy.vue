@@ -12,6 +12,8 @@ import FormStudy from './FormStudy.vue'
 import Chart from './Chart.vue'
 import Select from './Select/index.vue'
 import If from './If/index.vue'
+import Choose from './Choose/index.vue'
+import Else from './Else/index.vue'
 
 export default {
     components: {
@@ -24,6 +26,8 @@ export default {
         FormStudy,
         Select,
         If,
+        Choose,
+        Else,
     },
 
     data() {
@@ -68,12 +72,14 @@ export default {
                     name: '3',
                     render: () => (
                         <Wrapper height={this.wrapperHeight}>
-                            <If condition={this.gender === 'male'}>
-                                <FormStudy />
-                            </If>
-                            <If condition={this.gender !== 'male'}>
-                                <Chart />
-                            </If>
+                            <Choose>
+                                <If condition={this.gender === 'male'}>
+                                    <FormStudy />
+                                </If>
+                                <Else>
+                                    <Chart />
+                                </Else>
+                            </Choose>
                         </Wrapper>
                     ),
                     renderLabel: () => (
