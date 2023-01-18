@@ -1,5 +1,5 @@
 <template>
-    <el-tabs v-bind="$attrs" v-model="currentTab">
+    <el-tabs v-bind="$attrs" v-on="$listeners" v-model="currentTab">
         <el-tab-pane
             v-for="{ render, renderLabel, renderText, ...tab } in tabs"
             v-bind="tab"

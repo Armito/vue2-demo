@@ -1,5 +1,16 @@
 <template>
-    <Tabs :tabs="tabs" v-model="currentTab" type="border-card" />
+    <div>
+        <Tabs
+            :tabs="tabs"
+            v-model="currentTab"
+            type="border-card"
+            @tab-remove="removeTab"
+        />
+        <Space>
+            <el-button @click="addTab">+++</el-button>
+            <el-button @click="saveTab">save</el-button>
+        </Space>
+    </div>
 </template>
 
 <script>
@@ -26,6 +37,29 @@ export default {
         If,
     },
 
+    methods: {
+        addTab() {
+            this.newTabs.push({
+                label: `new tab ${this.num + 1}`,
+                name: ++this.num + '',
+                lazy: true,
+                closable: true,
+                render: (tab) => (
+                    <Wrapper height={this.wrapperHeight}>{tab.label}</Wrapper>
+                ),
+            })
+        },
+
+        removeTab(name) {
+            this.newTabs = this.newTabs.filter((tab) => tab.name !== name)
+        },
+
+        saveTab() {
+            console.log(this.newTabs)
+            console.log(JSON.stringify(this.newTabs))
+        },
+    },
+
     data() {
         this.infoContent = '这是一点信息～～～'
         this.wrapperHeight = '250px'
@@ -33,7 +67,8 @@ export default {
         return {
             currentTab: '2',
             gender: 'male',
-            num: 0,
+            num: 3,
+            newTabs: [],
         }
     },
 
@@ -49,12 +84,14 @@ export default {
                         </Wrapper>
                     ),
                     renderText: (tab) => {
-                        return `${tab.label} (${this.num})`
+                        return `${tab.label} (${this.tabs.length})`
                     },
+                    closable: false,
                 },
                 {
                     label: '角色管理',
                     name: '2',
+                    lazy: true,
                     renderLabel: (tab) => (
                         <Space>
                             <span>{tab.label}</span>
@@ -70,6 +107,7 @@ export default {
                 {
                     label: '行程管理',
                     name: '3',
+                    lazy: true,
                     render: (tab) => (
                         <Wrapper height={this.wrapperHeight}>
                             {this.gender === 'male' ? <FormStudy /> : tab.label}
@@ -85,14 +123,9 @@ export default {
                         />
                     ),
                 },
+                ...this.newTabs,
             ]
         },
-    },
-
-    mounted() {
-        setInterval(() => {
-            this.num += 1
-        }, 1000)
     },
 }
 </script>
