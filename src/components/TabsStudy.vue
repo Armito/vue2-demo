@@ -12,8 +12,6 @@ import FormStudy from './FormStudy.vue'
 import Chart from './Chart.vue'
 import Select from './Select/index.vue'
 import If from './If/index.vue'
-import Choose from './Choose/index.vue'
-import Else from './Else/index.vue'
 
 export default {
     components: {
@@ -26,8 +24,6 @@ export default {
         FormStudy,
         Select,
         If,
-        Choose,
-        Else,
     },
 
     data() {
@@ -37,6 +33,7 @@ export default {
         return {
             currentTab: '2',
             gender: 'male',
+            num: 0,
         }
     },
 
@@ -46,18 +43,21 @@ export default {
                 {
                     label: '我的行程',
                     name: '1',
-                    render: () => (
+                    render: (tab) => (
                         <Wrapper height={this.wrapperHeight}>
-                            <span>我的行程</span>
+                            <span>{tab.label}</span>
                         </Wrapper>
                     ),
+                    renderText: (tab) => {
+                        return `${tab.label} (${this.num})`
+                    },
                 },
                 {
                     label: '角色管理',
                     name: '2',
-                    renderLabel: () => (
+                    renderLabel: (tab) => (
                         <Space>
-                            <span>角色管理</span>
+                            <span>{tab.label}</span>
                             <IconInfo content={this.infoContent} />
                         </Space>
                     ),
@@ -70,16 +70,9 @@ export default {
                 {
                     label: '行程管理',
                     name: '3',
-                    render: () => (
+                    render: (tab) => (
                         <Wrapper height={this.wrapperHeight}>
-                            <Choose>
-                                <If condition={this.gender === 'male'}>
-                                    <FormStudy />
-                                </If>
-                                <Else>
-                                    <Chart />
-                                </Else>
-                            </Choose>
+                            {this.gender === 'male' ? <FormStudy /> : tab.label}
                         </Wrapper>
                     ),
                     renderLabel: () => (
@@ -94,6 +87,12 @@ export default {
                 },
             ]
         },
+    },
+
+    mounted() {
+        setInterval(() => {
+            this.num += 1
+        }, 1000)
     },
 }
 </script>
