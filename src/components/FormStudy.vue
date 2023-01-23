@@ -28,6 +28,8 @@
                 clearable
                 filterable
                 @clear="onClear"
+                :render-option-text="renderOptionText"
+                @visible-change="onVisibleChange"
             >
                 <!-- <el-option-group label="2133">
                     <el-option value="1" label="a"></el-option>
@@ -48,8 +50,8 @@
 </template>
 
 <script>
-import Space from './common/Space/index.vue'
-import Select from './common/Select/index.vue'
+import Space from './ARComponent/Space/index.vue'
+import Select from './ARComponent/Select/index.vue'
 
 const ModeOptions = [
     {
@@ -108,6 +110,34 @@ const ModeOptions = [
         key: 14,
         name: 'Continous',
     },
+    {
+        key: 15,
+        name: 'Continous',
+    },
+    {
+        key: 16,
+        name: 'Continous',
+    },
+    {
+        key: 17,
+        name: 'Continous',
+    },
+    {
+        key: 18,
+        name: 'Continous',
+    },
+    {
+        key: 19,
+        name: 'Continous',
+    },
+    {
+        key: 20,
+        name: 'Continous',
+    },
+    {
+        key: 21,
+        name: 'Continous',
+    },
 ]
 
 export default {
@@ -134,6 +164,14 @@ export default {
     },
 
     methods: {
+        renderOptionText(h, { label, value }) {
+            return label + `---1---${value}---`
+        },
+
+        onVisibleChange(visible) {
+            console.log(visible)
+        },
+
         onClear() {
             console.log('clear')
         },

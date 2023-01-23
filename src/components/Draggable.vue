@@ -7,42 +7,42 @@
  * @FilePath: \vue-demo\src\components\Draggable.vue
 -->
 <template>
-  <div>
-    <div class="select">
-      <div :class="$style.box" @dragover.prevent @drop="drop">
-        <span draggable @dragstart="dragstart">Armito</span>
-      </div>
-      <div :class="$style.box" @dragover.prevent @drop="drop"></div>
-      <div :class="$style.box" @dragover.prevent @drop="drop"></div>
-      <div :class="$style.box" @dragover.prevent @drop="drop"></div>
+    <div>
+        <div class="select">
+            <div :class="$style.box" @dragover.prevent @drop="drop">
+                <span draggable @dragstart="dragstart">Armito</span>
+            </div>
+            <div :class="$style.box" @dragover.prevent @drop="drop"></div>
+            <div :class="$style.box" @dragover.prevent @drop="drop"></div>
+            <div :class="$style.box" @dragover.prevent @drop="drop"></div>
+        </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
-  data() {
-    this.movingDOM = null;
-    return {};
-  },
-
-  methods: {
-    dragstart(e) {
-      this.movingDOM = e.target;
+    data() {
+        this.movingDOM = null
+        return {}
     },
 
-    drop(e) {
-      this.movingDOM.remove();
-      e.target.appendChild(this.movingDOM);
-    }
-  }
-};
+    methods: {
+        dragstart(e) {
+            this.movingDOM = e.target
+        },
+
+        drop(e) {
+            this.movingDOM.remove()
+            e.target.appendChild(this.movingDOM)
+        },
+    },
+}
 </script>
 
 <style module>
 .box {
-  width: 80px;
-  height: 30px;
-  border: 1px solid #ccc;
+    width: 80px;
+    height: 30px;
+    border: 1px solid #ccc;
 }
 </style>

@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import Field from '../common/Field/index.vue'
-import Render from '../common/Render/index.vue'
+import Field from '../Field/index.vue'
+import Render from '../Render/index.vue'
 
 export default {
     name: 'Form',

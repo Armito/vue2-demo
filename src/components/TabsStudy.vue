@@ -26,14 +26,14 @@
 </template>
 
 <script>
-import Tabs from './common/Tabs/index.vue'
-import Space from './common/Space/index.vue'
+import Tabs from './ARComponent/Tabs/index.vue'
+import Space from './ARComponent/Space/index.vue'
 import IconInfo from './IconInfo/index.vue'
-import Wrapper from './common/Wrapper/index.vue'
+import Wrapper from './ARComponent/Wrapper/index.vue'
 import Day from './Day.vue'
 import FormStudy from './FormStudy.vue'
 import Chart from './Chart.vue'
-import Filed from './common/Field/index.vue'
+import Filed from './ARComponent/Field/index.vue'
 import { mixin_options_gender, mixin_options_roles } from '../mixins'
 
 export default {

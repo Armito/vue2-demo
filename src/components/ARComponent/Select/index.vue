@@ -4,6 +4,7 @@
         v-on="$listeners"
         v-model="innerValue"
         :ref="forwardRef"
+        @visible-change="onVisibleChange"
     >
         <template #default>
             <template v-if="renderOptions">
@@ -14,10 +15,17 @@
             </template>
             <template v-else>
                 <slot name="default">
-                    <el-option
-                        v-for="o in innerOptions"
-                        v-bind="o"
-                        :key="o.value"
+                    <VirtualList
+                        :ref="(ref) => (virtualListRef = ref)"
+                        style="max-height: 250px; overflow-y: auto"
+                        data-key="value"
+                        :data-sources="innerOptions"
+                        :data-component="dataComponent"
+                        :keeps="10"
+                        :extra-props="{
+                            renderOption,
+                            renderOptionText,
+                        }"
                     />
                 </slot>
             </template>
@@ -46,6 +54,8 @@
 <script>
 import Base from '../Base/index.vue'
 import Render from '../Render/index.vue'
+import VirtualList from 'vue-virtual-scroll-list'
+import Option from './components/Option/index.vue'
 
 export default {
     name: 'Select',
@@ -54,6 +64,8 @@ export default {
 
     components: {
         Render,
+        VirtualList,
+        Option,
     },
 
     props: {
@@ -80,6 +92,14 @@ export default {
             type: Function,
         },
 
+        renderOption: {
+            type: Function,
+        },
+
+        renderOptionText: {
+            type: Function,
+        },
+
         renderPrefix: {
             type: Function,
         },
@@ -87,17 +107,13 @@ export default {
         renderEmpty: {
             type: Function,
         },
+    },
 
-        infiniteScroll: {
-            type: Function,
-        },
-
-        infiniteScrollProps: {
-            type: Object,
-            default() {
-                return {}
-            },
-        },
+    data() {
+        return {
+            dataComponent: Option,
+            virtualListRef: null,
+        }
     },
 
     computed: {
@@ -110,7 +126,13 @@ export default {
             }))
         },
     },
+
+    methods: {
+        onVisibleChange(visible) {
+            if (!visible) {
+                this.virtualListRef?.reset?.()
+            }
+        },
+    },
 }
 </script>
-
-<style scoped></style>

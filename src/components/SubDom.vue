@@ -7,19 +7,17 @@
  * @FilePath: \vue-demo\src\components\Dom.vue
 -->
 <template>
-  <div id="subdom">
-    subdom
-  </div>
+    <div id="subdom">subdom</div>
 </template>
 
 <script>
 export default {
-  created() {},
+    created() {},
 
-  mounted() {
-    document.querySelector("#subdom").innerHTML = "sub";
-  }
-};
+    mounted() {
+        document.querySelector('#subdom').innerHTML = 'sub'
+    },
+}
 </script>
 
 <style></style>

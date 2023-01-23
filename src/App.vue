@@ -78,10 +78,10 @@ import CountIndictor from './components/CountIndictor.vue'
 import Count from './components/Count.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
-import Table from './components/common/Table/index.vue'
-import Form from './components/Form/index.vue'
+import Table from './components/ARComponent/Table/index.vue'
+import Form from './components/ARComponent/Form/index.vue'
 import TabsStudy from './components/TabsStudy.vue'
-import Space from './components/common/Space/index.vue'
+import Space from './components/ARComponent/Space/index.vue'
 
 export default {
     components: {

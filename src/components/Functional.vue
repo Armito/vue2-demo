@@ -7,21 +7,21 @@
  * @FilePath: \vue-demo\src\components\Functional.vue
 -->
 <template>
-  <Fuji />
+    <Fuji />
 </template>
 
 <script>
 export default {
-  components: {
-    Fuji: {
-      functional: true,
-      render(h, ctx) {
-        console.log(ctx);
-        return h("p", 321);
-      }
-    }
-  }
-};
+    components: {
+        Fuji: {
+            functional: true,
+            render(h, ctx) {
+                console.log(ctx)
+                return h('p', 321)
+            },
+        },
+    },
+}
 </script>
 
 <style></style>
