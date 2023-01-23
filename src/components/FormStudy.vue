@@ -17,7 +17,7 @@
 
         <el-form-item label="活动模式">
             <Select
-                ref="selectRef"
+                :forward-ref="(ref) => (selectRef = ref)"
                 v-model="formModel.mode"
                 :options="ModeOptions"
                 :field-map="{
@@ -28,11 +28,6 @@
                 clearable
                 filterable
                 @clear="onClear"
-                :has-page="true"
-                :pagination-props="{
-                    total: 14,
-                }"
-                @curret-change="onCurrentPageChange"
             >
                 <!-- <el-option-group label="2133">
                     <el-option value="1" label="a"></el-option>
@@ -53,9 +48,8 @@
 </template>
 
 <script>
-import Space from './Space/index.vue'
-import Rule from './Rule/index.vue'
-import Select from './Select/index.vue'
+import Space from './common/Space/index.vue'
+import Select from './common/Select/index.vue'
 
 const ModeOptions = [
     {
@@ -127,13 +121,15 @@ export default {
 
     data() {
         return {
-            ModeOptions: ModeOptions.slice(0, 9),
+            ModeOptions: ModeOptions.slice(0),
             formModel: {
                 name: '',
                 porpleNum: [1, 1],
                 mode: 1,
                 rule: 2,
             },
+            selectRef: null,
+            count: 14,
         }
     },
 
@@ -142,21 +138,13 @@ export default {
             console.log('clear')
         },
 
-        onCurrentPageChange(currentPage) {
-            this.ModeOptions = ModeOptions.slice(
-                (currentPage - 1) * 10,
-                currentPage * 10,
-            )
-        },
-
         onSubmit() {
             console.log(this.formModel)
         },
     },
 
     mounted() {
-        console.log(this.$refs.selectRef)
-        this.$refs.selectRef.focus()
+        this.selectRef?.focus()
     },
 }
 </script>

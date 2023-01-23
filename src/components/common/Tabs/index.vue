@@ -1,5 +1,5 @@
 <template>
-    <el-tabs v-bind="$attrs" v-on="$listeners" v-model="currentTab">
+    <el-tabs v-bind="$attrs" v-on="$listeners" v-model="innerValue">
         <el-tab-pane
             v-for="{ render, renderLabel, renderText, ...tab } in tabs"
             v-bind="tab"
@@ -12,7 +12,7 @@
                     :params="tab"
                 />
                 <template v-else>
-                    {{ renderText ? renderText(tab) : tab.label }}
+                    {{ renderText?.(tab.label, tab) ?? tab.label }}
                 </template>
             </template>
 
@@ -24,26 +24,19 @@
 </template>
 
 <script>
+import Base from '../Base/index.vue'
 import Render from '../Render/index.vue'
 
 export default {
     name: 'Tabs',
 
-    model: {
-        prop: 'value',
-        event: 'update:value',
-    },
+    extends: Base,
 
     components: {
         Render,
     },
 
     props: {
-        value: {
-            type: String,
-            required: true,
-        },
-
         /**
          * @typedef {object} Tabpane
          * @property {function} Tabpane.render            -- 渲染内容
@@ -57,17 +50,6 @@ export default {
         tabs: {
             type: Array,
             default: () => [],
-        },
-    },
-
-    computed: {
-        currentTab: {
-            get() {
-                return this.value
-            },
-            set(v) {
-                this.$emit('update:value', v)
-            },
         },
     },
 }

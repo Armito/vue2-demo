@@ -1,19 +1,19 @@
 <template>
-    <div @click="$_mixinCount_increment(1)">
+    <div @click="mixinCountIncrement(1)">
         {{ count }}
     </div>
 </template>
 
 <script>
-import { mixinCount } from '../mixins'
+import { mixin_count } from '../mixins'
 import Count from '../components/Count.vue'
 
 export default {
-    mixins: [mixinCount],
+    mixins: [mixin_count],
     // extends: Count,
 
     watch: {
-        $_mixinCount_count: {
+        mixinCountCount: {
             handler(v) {
                 console.log(v)
             },

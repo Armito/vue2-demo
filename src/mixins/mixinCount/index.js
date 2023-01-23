@@ -1,6 +1,6 @@
 import { isNumber } from 'lodash'
 
-export const mixinCount = {
+export const mixin_count = {
     data() {
         return {
             count: 0,
@@ -8,7 +8,7 @@ export const mixinCount = {
     },
 
     watch: {
-        count() {
+        mixinCountCount() {
             console.log('123')
         },
     },
@@ -17,7 +17,7 @@ export const mixinCount = {
         /**
          * @param  {number} val
          */
-        $_mixinCount_increment(val = 0) {
+        mixinCountIncrement(val = 0) {
             console.log(val)
             if (isNumber(val)) {
                 this.count += val

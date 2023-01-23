@@ -1,34 +1,19 @@
 <template>
     <div id="app">
         <TabsStudy />
-        <QueryForm
+        <Form
             v-model="formModel"
             :items="items"
             :rules="rules"
             @submit="onSearch"
-        >
-            <template #expire>
-                <el-color-picker v-model="formModel.expire"></el-color-picker>
-            </template>
-            <template #operation="{ reset, submit }">
-                <el-button
-                    @click="
-                        () => {
-                            submit()
-                        }
-                    "
-                >
-                    submit
-                </el-button>
-            </template>
-        </QueryForm>
+            :renderOperation="renderOperation"
+        />
         <Table
-            ref="tableRef"
+            :forward-ref="(ref) => (tableRef = ref)"
             :columns="columns"
             :data="tableData"
+            :renderAppend="renderAppend"
             height="250"
-            hasSelection
-            hasIndex
         />
         <JsDoc />
         <div>
@@ -93,9 +78,10 @@ import CountIndictor from './components/CountIndictor.vue'
 import Count from './components/Count.vue'
 import CompositionApi from './components/CompositionApi.vue'
 import JsDoc from './components/JsDoc.vue'
-import Table from './components/Table/index.vue'
-import QueryForm from './components/QueryForm/index.vue'
+import Table from './components/common/Table/index.vue'
+import Form from './components/Form/index.vue'
 import TabsStudy from './components/TabsStudy.vue'
+import Space from './components/common/Space/index.vue'
 
 export default {
     components: {
@@ -117,9 +103,10 @@ export default {
         CompositionApi,
         JsDoc,
         Table,
-        QueryForm,
+        Form,
         Count,
         TabsStudy,
+        Space,
     },
 
     methods: {
@@ -177,6 +164,31 @@ export default {
         testReactivity4() {
             this.testObj.qqqqqq = '77777'
         },
+
+        renderAppend() {
+            return <div>4536251</div>
+        },
+
+        renderOperation(h, { submit, reset }) {
+            return (
+                <Space>
+                    <el-button
+                        onClick={() => {
+                            submit()
+                        }}
+                    >
+                        submit
+                    </el-button>
+                    <el-button
+                        onClick={() => {
+                            reset()
+                        }}
+                    >
+                        reset
+                    </el-button>
+                </Space>
+            )
+        },
     },
 
     data() {
@@ -191,11 +203,11 @@ export default {
                     prop: 'region',
                     label: '审批类型',
                     fieldType: 'checkbox',
-                    options: [
-                        { name: 'a', key: 1 },
-                        { name: 'b', key: 2 },
-                    ],
-                    proFormItem: {
+                    fieldProps: {
+                        options: [
+                            { name: 'a', key: 1 },
+                            { name: 'b', key: 2 },
+                        ],
                         fieldMap: {
                             value: 'key',
                             label: 'name',
@@ -203,9 +215,13 @@ export default {
                     },
                 },
                 {
-                    slot: 'expire',
                     prop: 'expire',
                     label: '审批截止时间',
+                    renderField: (h) => {
+                        return (
+                            <el-color-picker vModel={this.formModel.expire} />
+                        )
+                    },
                 },
                 {
                     prop: 'time',
@@ -241,6 +257,7 @@ export default {
                 pppp: '22222',
             },
 
+            tableRef: null,
             columns: [
                 {
                     prop: 'date',
@@ -251,6 +268,9 @@ export default {
                     },
                 },
                 {
+                    type: 'selection',
+                },
+                {
                     prop: 'name',
                     label: '姓名',
                     width: 180,
@@ -259,8 +279,14 @@ export default {
                     },
                 },
                 {
+                    type: 'index',
+                },
+                {
                     prop: 'address',
                     label: '地址',
+                    renderText: (label, row) => {
+                        return label + 'ARARAR'
+                    },
                 },
             ],
             tableData: [
@@ -319,7 +345,7 @@ export default {
 
     mounted() {
         setTimeout(() => {
-            this.$refs.tableRef.$refs.tableRef.clearSelection()
+            this.tableRef.clearSelection()
             this.formModel.user = 'Armito'
             // this.formModel.region = 1
         }, 3000)

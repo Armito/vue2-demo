@@ -1,11 +1,23 @@
 <template>
     <div>
+        <Filed
+            field-type="transfer"
+            :forwardRef="(ref) => (forwardRef = ref)"
+            v-model="transferedArray"
+            :data="mixinOptionsRoles"
+            filterable
+            :renderContent="renderContent"
+            :renderLeftFooter="renderLeftFooter"
+            :renderRightFooter="renderRightFooter"
+        />
+
         <Tabs
             :tabs="tabs"
             v-model="currentTab"
             type="border-card"
             @tab-remove="removeTab"
         />
+
         <Space>
             <el-button @click="addTab">+++</el-button>
             <el-button @click="saveTab">save</el-button>
@@ -14,15 +26,15 @@
 </template>
 
 <script>
-import Tabs from './Tabs/index.vue'
-import Space from './Space/index.vue'
+import Tabs from './common/Tabs/index.vue'
+import Space from './common/Space/index.vue'
 import IconInfo from './IconInfo/index.vue'
-import Wrapper from './Wrapper/index.vue'
+import Wrapper from './common/Wrapper/index.vue'
 import Day from './Day.vue'
 import FormStudy from './FormStudy.vue'
 import Chart from './Chart.vue'
-import Select from './Select/index.vue'
-import If from './If/index.vue'
+import Filed from './common/Field/index.vue'
+import { mixin_options_gender, mixin_options_roles } from '../mixins'
 
 export default {
     components: {
@@ -33,24 +45,68 @@ export default {
         Day,
         Chart,
         FormStudy,
-        Select,
-        If,
+        Filed,
     },
 
+    mixins: [mixin_options_gender, mixin_options_roles],
+
     methods: {
+        renderContent(h, option) {
+            return <span>{option.label + ' ⬆️'}</span>
+        },
+
+        renderLeftFooter() {
+            return (
+                <el-button onClick={this.clearTransferQuery}>reset</el-button>
+            )
+        },
+
+        clearTransferQuery() {
+            this.forwardRef?.clearQuery?.('left')
+            this.forwardRef?.clearQuery?.('right')
+        },
+
+        renderRightFooter() {
+            return (
+                <Space>
+                    <el-button onClick={this.clearTransfer}>clear</el-button>
+                    <el-button type="primary" onClick={this.saveTransfer}>
+                        save
+                    </el-button>
+                </Space>
+            )
+        },
+
+        clearTransfer() {
+            this.transferedArray = []
+        },
+
+        saveTransfer() {
+            console.log(this.transferedArray)
+        },
+
         addTab() {
             this.newTabs.push({
                 label: `new tab ${this.num + 1}`,
                 name: ++this.num + '',
                 lazy: true,
                 closable: true,
-                render: (tab) => (
-                    <Wrapper height={this.wrapperHeight}>{tab.label}</Wrapper>
+                render: () => (
+                    <Wrapper height={this.wrapperHeight}>
+                        {this.mixinOptionsRoles.map((o) => o.label).join('-')}
+                    </Wrapper>
                 ),
+            })
+            this.$nextTick(() => {
+                this.currentTab = this.num + ''
             })
         },
 
         removeTab(name) {
+            if (name === this.currentTab) {
+                const idx = this.tabs.findIndex((tab) => tab.name === name)
+                this.currentTab = this.tabs[idx - 1]?.name
+            }
             this.newTabs = this.newTabs.filter((tab) => tab.name !== name)
         },
 
@@ -69,6 +125,8 @@ export default {
             gender: 'male',
             num: 3,
             newTabs: [],
+            transferedArray: [],
+            forwardRef: null,
         }
     },
 
@@ -78,21 +136,19 @@ export default {
                 {
                     label: '我的行程',
                     name: '1',
-                    render: (tab) => (
+                    closable: false,
+                    renderText: (label) => `${label} (${this.newTabs.length})`,
+                    render: (h, tab) => (
                         <Wrapper height={this.wrapperHeight}>
                             <span>{tab.label}</span>
                         </Wrapper>
                     ),
-                    renderText: (tab) => {
-                        return `${tab.label} (${this.tabs.length})`
-                    },
-                    closable: false,
                 },
                 {
                     label: '角色管理',
                     name: '2',
                     lazy: true,
-                    renderLabel: (tab) => (
+                    renderLabel: (h, tab) => (
                         <Space>
                             <span>{tab.label}</span>
                             <IconInfo content={this.infoContent} />
@@ -108,19 +164,20 @@ export default {
                     label: '行程管理',
                     name: '3',
                     lazy: true,
-                    render: (tab) => (
-                        <Wrapper height={this.wrapperHeight}>
-                            {this.gender === 'male' ? <FormStudy /> : tab.label}
-                        </Wrapper>
-                    ),
                     renderLabel: () => (
-                        <Select
+                        <Filed
+                            fieldType="radio"
                             vModel={this.gender}
-                            options={[
-                                { label: 'male', value: 'male' },
-                                { label: 'female', value: 'female' },
-                            ]}
+                            options={this.mixinOptionsGender}
+                            renderLabel={(h, { label }) => (
+                                <span>🈶️ {label}</span>
+                            )}
                         />
+                    ),
+                    render: () => (
+                        <Wrapper height={this.wrapperHeight}>
+                            {this.gender === 'male' ? <FormStudy /> : <Chart />}
+                        </Wrapper>
                     ),
                 },
                 ...this.newTabs,

@@ -1,17 +1,19 @@
 <template>
     <component
-        :is="componentType"
         v-bind="$attrs"
         v-on="$listeners"
-        v-model="_value"
+        v-model="innerValue"
+        :is="componentType"
         :type="fieldType"
     ></component>
 </template>
 
 <script>
+import Base from '../Base/index.vue'
 import Select from '../Select/index.vue'
 import Radio from '../Radio/index.vue'
 import Checkbox from '../Checkbox/index.vue'
+import Transfer from '../Transfer/index.vue'
 
 // 注册字段类型到组件的映射
 export const FieldTypeToComponentMap = {
@@ -28,20 +30,19 @@ export const FieldTypeToComponentMap = {
     datetime: 'el-date-picker',
     year: 'el-date-picker',
     rate: 'el-rate',
+    transfer: 'Transfer',
 }
 
 export default {
-    name: 'ProFormItem',
+    name: 'Field',
+
+    extends: Base,
 
     components: {
         Select,
         Radio,
         Checkbox,
-    },
-
-    model: {
-        prop: 'value',
-        event: 'update:value',
+        Transfer,
     },
 
     props: {
@@ -49,26 +50,13 @@ export default {
             validator(val) {
                 return Object.keys(FieldTypeToComponentMap).includes(val)
             },
-            required: true,
-        },
-
-        value: {
-            type: [String, Number, Boolean, Date, Array],
+            default: 'text',
         },
     },
 
     computed: {
         componentType() {
             return FieldTypeToComponentMap[this.fieldType]
-        },
-
-        _value: {
-            get() {
-                return this.value
-            },
-            set(val) {
-                this.$emit('update:value', val)
-            },
         },
     },
 }

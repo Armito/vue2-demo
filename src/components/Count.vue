@@ -1,7 +1,5 @@
 <template>
-    <div @click="$_mixinCount_increment(1)">
-        {{ $_mixinCount_count }}{{ count }}
-    </div>
+    <div @click="mixinCountIncrement(1)">{{ mixinCountCount }}{{ count }}</div>
 </template>
 
 <script>
@@ -10,13 +8,13 @@ import { isNumber } from 'lodash'
 export default {
     data() {
         return {
-            $_mixinCount_count: 0,
+            mixinCountCount: 0,
             count: 0,
         }
     },
 
     watch: {
-        $_mixinCount_count() {
+        mixinCountCount() {
             console.log('123')
         },
     },
@@ -25,18 +23,18 @@ export default {
         /**
          * @param  {number} val
          */
-        $_mixinCount_increment(val = 0) {
+        mixinCountIncrement(val = 0) {
             console.log(val)
             if (isNumber(val)) {
                 console.log(23)
-                this.$_mixinCount_count = 123
+                this.mixinCountCount = 123
                 this.count += 1
             }
         },
     },
 
     created() {
-        this.$_mixinCount_count = Math.floor(Math.random() * 10)
+        this.mixinCountCount = Math.floor(Math.random() * 10)
     },
 }
 </script>

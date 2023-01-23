@@ -1,18 +1,36 @@
 <template>
-    <el-checkbox-group v-bind="$attrs" v-on="$listeners" v-model="_value">
+    <el-checkbox-group
+        v-bind="$attrs"
+        v-on="$listeners"
+        v-model="innerValue"
+        :ref="forwardRef"
+    >
         <component
-            :is="_type"
-            v-for="o in _options"
+            :is="innerType"
+            v-for="o in innerOptions"
             v-bind="o"
             :key="o.value"
             :label="o.value"
         >
-            {{ o.label }}
+            <template #default>
+                <template v-if="renderLabel">
+                    <Render :render="renderLabel" :params="o" />
+                </template>
+
+                <template v-else>
+                    <slot name="default">
+                        {{ renderText?.(o.label, o) ?? o.label }}
+                    </slot>
+                </template>
+            </template>
         </component>
     </el-checkbox-group>
 </template>
 
 <script>
+import Base from '../Base/index.vue'
+import Render from '../Render/index.vue'
+
 const CheckboxTypeMap = {
     checkbox: 'el-checkbox',
     checkboxbutton: 'el-checkbox-button',
@@ -21,21 +39,22 @@ const CheckboxTypeMap = {
 export default {
     name: 'Checkbox',
 
-    model: {
-        prop: 'value',
-        event: 'update:value',
+    extends: Base,
+
+    components: {
+        Render,
     },
 
     props: {
-        type: {
-            validator(val) {
-                return ['checkbox', 'checkboxbutton'].includes(val)
-            },
-            default: 'checkbox',
+        forwardRef: {
+            type: Function,
         },
 
-        value: {
-            type: Array,
+        type: {
+            validator(val) {
+                return Object.keys(CheckboxTypeMap).includes(val)
+            },
+            default: 'checkbox',
         },
 
         options: {
@@ -47,25 +66,26 @@ export default {
 
         fieldMap: {
             type: Object,
-            default: () => ({}),
+            default() {
+                return {}
+            },
+        },
+
+        renderLabel: {
+            type: Function,
+        },
+
+        renderText: {
+            type: Function,
         },
     },
 
     computed: {
-        _type() {
+        innerType() {
             return CheckboxTypeMap[this.type]
         },
 
-        _value: {
-            get() {
-                return this.value
-            },
-            set(val) {
-                this.$emit('update:value', val)
-            },
-        },
-
-        _options() {
+        innerOptions() {
             const _fieldMap = {
                 value: this.fieldMap.value || 'value',
                 label: this.fieldMap.label || 'label',

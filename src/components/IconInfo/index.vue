@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Icon from '../Icon/index.vue'
+import Icon from '../common/Icon/index.vue'
 
 export default {
     name: 'IconInfo',
