@@ -19,6 +19,7 @@
                 <template v-else>
                     <Field
                         v-bind="item.fieldProps"
+                        v-on="item.fieldListeners"
                         v-model="formModel[item.prop]"
                         :fieldType="item.fieldType"
                     />
@@ -64,6 +65,7 @@ export default {
          * @typedef {object} Item
          * @property {function} Item.fieldType        -- Field类型
          * @property {function} Item.fieldProps       -- Field的props
+         * @property {function} Item.fieldListeners   -- Field的events
          * @property {function} Item.renderField      -- 渲染自定义Field
          */
         /**

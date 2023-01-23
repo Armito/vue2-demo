@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'RenderComponent',
+    name: 'Render',
 
     props: {
         render: {

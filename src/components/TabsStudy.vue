@@ -31,7 +31,6 @@ import Space from './ARComponent/Space/index.vue'
 import IconInfo from './IconInfo/index.vue'
 import Wrapper from './ARComponent/Wrapper/index.vue'
 import Day from './Day.vue'
-import FormStudy from './FormStudy.vue'
 import Chart from './Chart.vue'
 import Filed from './ARComponent/Field/index.vue'
 import { mixin_options_gender, mixin_options_roles } from '../mixins'
@@ -44,7 +43,6 @@ export default {
         Wrapper,
         Day,
         Chart,
-        FormStudy,
         Filed,
     },
 
@@ -176,7 +174,7 @@ export default {
                     ),
                     render: () => (
                         <Wrapper height={this.wrapperHeight}>
-                            {this.gender === 'male' ? <FormStudy /> : <Chart />}
+                            {this.gender === 'male' ? <div /> : <Chart />}
                         </Wrapper>
                     ),
                 },

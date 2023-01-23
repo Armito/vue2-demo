@@ -24,9 +24,6 @@
         </div>
         <Count />
         <div>
-            <FormStudy />
-        </div>
-        <div>
             <button @click="testReactivity">TEST</button>
             <button @click="testReactivity2">TEST2</button>
             <button @click="testReactivity3">TEST3</button>
@@ -35,19 +32,9 @@
             <div>2: {{ testObj.pppp }}</div>
             <div>3: {{ testObj.qqqqqq }}</div>
         </div>
-
-        <Dom />
         <Functional style="color: skyblue" class="fff" :flag="true" />
         <!-- <ChangePage /> -->
         <!-- <Select /> -->
-        <!-- <InputValidate /> -->
-        <ARForm
-            ref="arForm"
-            :form="form"
-            :formItems="formItems"
-            :buttons="buttons"
-            @buttonClick="buttonClick"
-        />
         <!-- <Chart chartBoxId="demo1" /> -->
         <!-- <Day /> -->
         <!-- <GridLayout /> -->
@@ -63,8 +50,6 @@ import { useForm, useFormItems, useButtons } from './App.js'
 // import Chart from './components/Chart.vue'
 // import Day from './components/Day.vue'
 // import GridLayout from './components/GridLayout.vue'
-import ARForm from './components/ARForm.vue'
-// import InputValidate from './components/InputValidate.vue'
 // import VxeTableDemo from './components/VxeTableDemo.vue'
 // import Select from './components/Select.vue'
 // import ChangePage from './components/ChangePage.vue'
@@ -72,8 +57,6 @@ import CSSModules from './components/CSSModules.vue'
 import Draggable from './components/Draggable.vue'
 import ClockThree from './components/ClockThree.vue'
 import Functional from './components/Functional.vue'
-import Dom from './components/Dom.vue'
-import FormStudy from './components/FormStudy.vue'
 import CountIndictor from './components/CountIndictor.vue'
 import Count from './components/Count.vue'
 import CompositionApi from './components/CompositionApi.vue'
@@ -83,13 +66,98 @@ import Form from './components/ARComponent/Form/index.vue'
 import TabsStudy from './components/TabsStudy.vue'
 import Space from './components/ARComponent/Space/index.vue'
 
+const ModeOptions = [
+    {
+        key: 1,
+        name: 'Once',
+    },
+    {
+        key: 2,
+        name: 'Continous',
+    },
+    {
+        key: 3,
+        name: 'Continous',
+    },
+    {
+        key: 4,
+        name: 'Continous',
+    },
+    {
+        key: 5,
+        name: 'Continous',
+    },
+    {
+        key: 6,
+        name: 'Continous',
+    },
+    {
+        key: 7,
+        name: 'Continous',
+    },
+    {
+        key: 8,
+        name: 'Continous',
+    },
+    {
+        key: 9,
+        name: 'Continous',
+    },
+    {
+        key: 10,
+        name: 'Continous',
+    },
+    {
+        key: 11,
+        name: 'Continous',
+    },
+    {
+        key: 12,
+        name: 'Continous',
+    },
+    {
+        key: 13,
+        name: 'Continous',
+    },
+    {
+        key: 14,
+        name: 'Continous',
+    },
+    {
+        key: 15,
+        name: 'Continous',
+    },
+    {
+        key: 16,
+        name: 'Continous',
+    },
+    {
+        key: 17,
+        name: 'Continous',
+    },
+    {
+        key: 18,
+        name: 'Continous',
+    },
+    {
+        key: 19,
+        name: 'Continous',
+    },
+    {
+        key: 20,
+        name: 'Continous',
+    },
+    {
+        key: 21,
+        name: 'Continous',
+    },
+]
+
 export default {
     components: {
         // Chart,
         // Day,
         // GridLayout,
-        ARForm,
-        // InputValidate
         // VxeTableDemo,
         // Select,
         // ChangePage
@@ -97,8 +165,6 @@ export default {
         Draggable,
         ClockThree,
         Functional,
-        Dom,
-        FormStudy,
         CountIndictor,
         CompositionApi,
         JsDoc,
@@ -227,6 +293,32 @@ export default {
                     prop: 'time',
                     label: '审批时间',
                     fieldType: 'datetime',
+                },
+                {
+                    prop: 'mode',
+                    label: '活动模式',
+                    fieldType: 'select',
+                    fieldProps: {
+                        options: ModeOptions,
+                        fieldMap: {
+                            value: 'key',
+                            label: 'name',
+                        },
+                        placeholder: 'jdsajdj',
+                        clearable: true,
+                        filterable: true,
+                        renderOptionText: (h, { label, value }) => {
+                            return label + `---1---${value}---`
+                        },
+                    },
+                    fieldListeners: {
+                        clear: () => {
+                            console.log('clear')
+                        },
+                        'visible-change': (visible) => {
+                            console.log(visible)
+                        },
+                    },
                 },
             ],
             formModel: {
