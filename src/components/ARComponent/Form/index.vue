@@ -1,5 +1,6 @@
 <template>
     <el-form
+        label-width="100px"
         v-bind="$attrs"
         v-on="$listeners"
         :model="formModel"
@@ -14,7 +15,7 @@
         >
             <template #default>
                 <template v-if="item.renderField">
-                    <Render :render="item.renderField" />
+                    <Render :render="item.renderField" :params="item" />
                 </template>
                 <template v-else>
                     <Field
@@ -23,6 +24,23 @@
                         v-model="formModel[item.prop]"
                         :fieldType="item.fieldType"
                     />
+                </template>
+            </template>
+
+            <template #label>
+                <template v-if="renderLabel || item.renderLabel">
+                    <Render
+                        :render="renderLabel || item.renderLabel"
+                        :params="item"
+                    />
+                </template>
+                <template v-else>
+                    {{
+                        (renderLabelText || item.renderLabelText)?.(
+                            item.label,
+                            item,
+                        ) ?? item.label
+                    }}
                 </template>
             </template>
         </el-form-item>
@@ -67,6 +85,8 @@ export default {
          * @property {function} Item.fieldProps       -- Field的props
          * @property {function} Item.fieldListeners   -- Field的events
          * @property {function} Item.renderField      -- 渲染自定义Field
+         * @property {function} Item.renderLabel      -- 渲染自定义label
+         * @property {function} Item.renderLabelText  -- 渲染自定义label文本
          */
         /**
          * @des column配置
@@ -82,6 +102,14 @@ export default {
         model: {
             type: Object,
             required: true,
+        },
+
+        renderLabel: {
+            type: Function,
+        },
+
+        renderLabelText: {
+            type: Function,
         },
 
         renderOperation: {

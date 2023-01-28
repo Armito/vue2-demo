@@ -6,6 +6,7 @@
             :items="items"
             :rules="rules"
             @submit="onSearch"
+            :renderLabel="renderLabel"
             :renderOperation="renderOperation"
         />
         <Table
@@ -65,6 +66,8 @@ import Table from './components/ARComponent/Table/index.vue'
 import Form from './components/ARComponent/Form/index.vue'
 import TabsStudy from './components/TabsStudy.vue'
 import Space from './components/ARComponent/Space/index.vue'
+import IconInfo from './components/IconInfo/index.vue'
+import LongTextTooltip from './components/ARComponent/LongTextTooltip/index.vue'
 
 const ModeOptions = [
     {
@@ -173,6 +176,8 @@ export default {
         Count,
         TabsStudy,
         Space,
+        IconInfo,
+        LongTextTooltip,
     },
 
     methods: {
@@ -233,6 +238,10 @@ export default {
 
         renderAppend() {
             return <div>4536251</div>
+        },
+
+        renderLabel(h, { label }) {
+            return <LongTextTooltip content={label} />
         },
 
         renderOperation(h, { submit, reset }) {
