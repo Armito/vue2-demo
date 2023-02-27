@@ -19,6 +19,7 @@
                 </template>
                 <template v-else>
                     <Field
+                        :mode="mode"
                         v-bind="item.fieldProps"
                         v-on="item.fieldListeners"
                         v-model="formModel[item.prop]"
@@ -114,6 +115,13 @@ export default {
 
         renderOperation: {
             type: Function,
+        },
+
+        mode: {
+            validator(value) {
+                return ['read', 'edit'].includes(value)
+            },
+            default: 'edit',
         },
     },
 

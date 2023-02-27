@@ -8,6 +8,7 @@
             @submit="onSearch"
             :renderLabel="renderLabel"
             :renderOperation="renderOperation"
+            :mode="mode"
         />
         <Table
             :forward-ref="(ref) => (tableRef = ref)"
@@ -261,6 +262,17 @@ export default {
                     >
                         reset
                     </el-button>
+                    <el-button
+                        onClick={() => {
+                            if (this.mode === 'edit') {
+                                this.mode = 'read'
+                            } else {
+                                this.mode = 'edit'
+                            }
+                        }}
+                    >
+                        {this.mode}
+                    </el-button>
                 </Space>
             )
         },
@@ -319,6 +331,7 @@ export default {
                         renderOptionText: (h, { label, value }) => {
                             return label + `---1---${value}---`
                         },
+                        mode: 'read',
                     },
                     fieldListeners: {
                         clear: () => {
@@ -335,6 +348,7 @@ export default {
                 region: [2],
                 expire: '#409EFF',
                 time: new Date(),
+                mode: 19,
             },
             rules: {
                 region: [
@@ -432,6 +446,8 @@ export default {
                     address: '上海市普陀区金沙江路 1516 弄',
                 },
             ],
+
+            mode: 'edit',
         }
     },
 

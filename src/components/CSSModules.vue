@@ -7,16 +7,16 @@
  * @FilePath: \vue-demo\src\components\CSSModules.vue
 -->
 <template>
-  <div>
-    <div :class="$style_a.red">1</div>
-    <div :class="$style_a.green">2</div>
-    <div :class="$style_a.box">4</div>
-    <div :class="$style_a.blue">3</div>
-  </div>
+    <div>
+        <div :class="$style_a.red">1</div>
+        <div :class="$style_a.green">2</div>
+        <div :class="$style_a.box">4</div>
+        <div :class="$style_a.blue">3</div>
+    </div>
 </template>
 
 <script>
-export default {};
+export default {}
 </script>
 
 <style module="$style_a">
@@ -24,22 +24,22 @@ export default {};
 @value Primary, Success, Warning from theme;
 
 .box {
-  width: 100px;
-  height: 100px;
+    width: 100px;
+    height: 100px;
 }
 
 .red {
-  composes: box;
-  background-color: Warning;
+    composes: box;
+    background-color: Warning;
 }
 
 .green {
-  composes: box;
-  background-color: Success;
+    composes: box;
+    background-color: Success;
 }
 
 .blue {
-  composes: box;
-  background-color: Primary;
+    composes: box;
+    background-color: Primary;
 }
 </style>

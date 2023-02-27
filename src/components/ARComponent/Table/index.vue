@@ -23,7 +23,12 @@
                         </template>
                         <template v-else>
                             {{
-                                c.renderText?.(row[c.prop], row) ?? row[c.prop]
+                                c.renderText?.(
+                                    row[c.prop],
+                                    row,
+                                    column,
+                                    $index,
+                                ) ?? row[c.prop]
                             }}
                         </template>
                     </template>
@@ -37,8 +42,12 @@
                         </template>
                         <template v-else>
                             {{
-                                c.renderHeaderText?.(column.label, row) ??
-                                column.label
+                                c.renderHeaderText?.(
+                                    column.label,
+                                    row,
+                                    column,
+                                    $index,
+                                ) ?? column.label
                             }}
                         </template>
                     </template>

@@ -1,5 +1,8 @@
 <template>
+    <InputText v-if="mode === 'read'" :value="currentLabel"></InputText>
+
     <el-select
+        v-else
         v-bind="$attrs"
         v-on="$listeners"
         v-model="innerValue"
@@ -56,6 +59,7 @@ import Base from '../Base/index.vue'
 import Render from '../Render/index.vue'
 import VirtualList from 'vue-virtual-scroll-list'
 import Option from './components/Option/index.vue'
+import InputText from '../InputText/index.vue'
 
 export default {
     name: 'Select',
@@ -66,6 +70,7 @@ export default {
         Render,
         VirtualList,
         Option,
+        InputText,
     },
 
     props: {
@@ -107,6 +112,13 @@ export default {
         renderEmpty: {
             type: Function,
         },
+
+        mode: {
+            validator(value) {
+                return ['read', 'edit'].includes(value)
+            },
+            default: 'edit',
+        },
     },
 
     data() {
@@ -124,6 +136,13 @@ export default {
                 label: o[this.fieldMap.label || 'label'],
                 disabled: o[this.fieldMap.disabled || 'disabled'],
             }))
+        },
+
+        currentLabel() {
+            return (
+                this.innerOptions?.find?.((o) => o.value === this.innerValue)
+                    ?.label || '-'
+            )
         },
     },
 
