@@ -1,5 +1,15 @@
 <template>
     <div id="app">
+        <Father />
+        <Test11 :getty="false" hush="123" @click="() => {}" v-model="yidata">
+            456
+        </Test11>
+        <Test1 />
+        <Test2 />
+        <Test3 />
+        <Test4 />
+        <Test5 />
+        <Test5_1 />
         <TabsStudy />
         <Form
             v-model="formModel"
@@ -69,6 +79,13 @@ import TabsStudy from './components/TabsStudy.vue'
 import Space from './components/ARComponent/Space/index.vue'
 import IconInfo from './components/IconInfo/index.vue'
 import LongTextTooltip from './components/ARComponent/LongTextTooltip/index.vue'
+import Test1 from './components/Test/1.vue'
+import Test2 from './components/Test/2.vue'
+import Test3 from './components/Test/3.vue'
+import Test4 from './components/Test/4.js'
+import { Test5, Test5_1 } from './components/Test/5.js'
+import Test11 from './components/Test/11.vue'
+import Father from './components/Rerender/Father.vue'
 
 const ModeOptions = [
     {
@@ -179,6 +196,14 @@ export default {
         Space,
         IconInfo,
         LongTextTooltip,
+        Test1,
+        Test2,
+        Test3,
+        Test4,
+        Test5,
+        Test5_1,
+        Test11,
+        Father,
     },
 
     methods: {
@@ -280,6 +305,7 @@ export default {
 
     data() {
         return {
+            yidata: {},
             items: [
                 {
                     prop: 'user',
@@ -462,7 +488,7 @@ export default {
 
     mounted() {
         setTimeout(() => {
-            this.tableRef.clearSelection()
+            // this.tableRef?.clearSelection()
             this.formModel.user = 'Armito'
             // this.formModel.region = 1
         }, 3000)
