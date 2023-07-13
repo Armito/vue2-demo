@@ -1,5 +1,9 @@
 <template>
     <div id="app">
+        <PDFViewer />
+        <Test0516 v-model="t0516" />
+        <Test0512 v-model="t0512" />
+        <ImageView />
         <Father />
         <Test11 :getty="false" hush="123" @click="() => {}" v-model="yidata">
             456
@@ -85,7 +89,11 @@ import Test3 from './components/Test/3.vue'
 import Test4 from './components/Test/4.js'
 import { Test5, Test5_1 } from './components/Test/5.js'
 import Test11 from './components/Test/11.vue'
+import Test0512 from './components/Test/Test0512.vue'
+import Test0516 from './components/Test/Test0516.vue'
 import Father from './components/Rerender/Father.vue'
+import ImageView from './components/ImageView/index.vue'
+import PDFViewer from './components/PDFViewer.vue'
 
 const ModeOptions = [
     {
@@ -204,6 +212,10 @@ export default {
         Test5_1,
         Test11,
         Father,
+        ImageView,
+        Test0512,
+        Test0516,
+        PDFViewer,
     },
 
     methods: {
@@ -305,6 +317,7 @@ export default {
 
     data() {
         return {
+            test0516: '',
             yidata: {},
             items: [
                 {
@@ -474,6 +487,11 @@ export default {
             ],
 
             mode: 'edit',
+            t0512: {},
+            t0516: {
+                ids: [],
+                labels: '123',
+            },
         }
     },
 
@@ -484,6 +502,20 @@ export default {
             },
             deep: true,
         },
+
+        t0512: {
+            deep: true,
+            handler(val) {
+                console.log(val)
+            },
+        },
+
+        t0516: {
+            deep: true,
+            handler(val) {
+                console.log(val)
+            },
+        },
     },
 
     mounted() {
@@ -491,7 +523,12 @@ export default {
             // this.tableRef?.clearSelection()
             this.formModel.user = 'Armito'
             // this.formModel.region = 1
+
+            // window.location.replace('https://www.baidu.com')
+            // window.location.replace('/search/search-result/mobile-search')
         }, 3000)
+
+        // alert(window.navigator.userAgent)
     },
 }
 </script>
