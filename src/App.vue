@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <Test1017 />
+        <div id="editorjs"></div>
         <PDFViewer />
         <Test0516 v-model="t0516" />
         <Test0512 v-model="t0512" />
@@ -94,6 +96,8 @@ import Test0516 from './components/Test/Test0516.vue'
 import Father from './components/Rerender/Father.vue'
 import ImageView from './components/ImageView/index.vue'
 import PDFViewer from './components/PDFViewer.vue'
+// import EditorJS from '@editorjs/editorjs'
+import Test1017 from './components/Test/Test1017'
 
 const ModeOptions = [
     {
@@ -216,6 +220,7 @@ export default {
         Test0512,
         Test0516,
         PDFViewer,
+        Test1017,
     },
 
     methods: {
@@ -529,6 +534,13 @@ export default {
         }, 3000)
 
         // alert(window.navigator.userAgent)
+
+        // const editor = new EditorJS({
+        //     /**
+        //      * Id of Element that should contain Editor instance
+        //      */
+        //     holder: 'editorjs',
+        // })
     },
 }
 </script>
